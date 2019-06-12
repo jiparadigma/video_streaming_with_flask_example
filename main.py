@@ -28,9 +28,14 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-@app.route('/video_feed')
-def video_feed():
-    return Response(gen(VideoCamera()),
+@app.route('/video_feed_1')
+def video_feed_1():
+    return Response(gen(VideoCamera("rtsp://admin:PCuervo03!@192.168.0.215:554/1/1")),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed_2')
+def video_feed_2():
+    return Response(gen(VideoCamera("rtsp://admin:PCuervo03!@192.168.0.210:554/1/1")),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
